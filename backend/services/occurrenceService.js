@@ -8,6 +8,121 @@ const {
   matchesRecurrenceRule,
 } = require("./recurrenceService");
 
+
+// CREATE ONE OCCURRENCE
+const generateOccurrence =
+  async (
+    ownerId,
+    definition,
+    localDate
+  ) => {
+
+    const scheduling =
+      definition.scheduling;
+
+    const occurrence =
+      await Occurrence.create({
+
+        ownerId,
+
+        definitionId:
+          definition._id,
+
+        localDate,
+
+        timezone:
+          scheduling.timezone,
+
+        time:
+          scheduling.time,
+
+        snapshot: {
+
+          title:
+            definition.title,
+
+          priority:
+            definition.metadata
+              ?.priority,
+        },
+      });
+
+    return occurrence;
+};
+
+
+// FIND OR CREATE
+const findOrCreateOccurrence =
+  async (
+    ownerId,
+    definition,
+    localDate
+  ) => {
+
+    // existing occurrence?
+    const existing =
+      await Occurrence.findOne({
+
+        definitionId:
+          definition._id,
+
+        localDate,
+      });
+
+    if (existing) {
+      return existing;
+    }
+
+    // create new occurrence
+    return await generateOccurrence(
+
+      ownerId,
+
+      definition,
+
+      localDate
+    );
+};
+
+
+// SHOULD OCCURRENCE EXIST?
+const shouldGenerateOccurrence =
+  (
+    definition,
+    localDate
+  ) => {
+
+    const scheduling =
+      definition.scheduling;
+
+    // ONCE
+    if (
+      scheduling.type === "once"
+    ) {
+
+      return (
+        scheduling.localDate ===
+        localDate
+      );
+    }
+
+    // RECURRING
+    if (
+      scheduling.type ===
+      "recurring"
+    ) {
+
+      return matchesRecurrenceRule(
+        definition,
+        localDate
+      );
+    }
+
+    return false;
+};
+
+
+// GENERATE RANGE
 const generateOccurrencesForRange =
   async (
     ownerId,
@@ -17,9 +132,14 @@ const generateOccurrencesForRange =
 
     const definitions =
       await Definition.find({
+
         ownerId,
-        "state.archived": false,
-        "state.deleted": false,
+
+        "state.archived":
+          false,
+
+        "state.deleted":
+          false,
       });
 
     const generated = [];
@@ -27,79 +147,41 @@ const generateOccurrencesForRange =
     let current =
       new Date(startDate);
 
-    while (current <= endDate) {
+    while (
+      current <=
+      new Date(endDate)
+    ) {
 
       const localDate =
-        current.toISOString().split("T")[0];
+        current
+          .toISOString()
+          .split("T")[0];
 
       for (const definition of definitions) {
 
-        const scheduling =
-          definition.scheduling;
+        const shouldExist =
+          shouldGenerateOccurrence(
+            definition,
+            localDate
+          );
 
-        let shouldExist = false;
-
-        // ONCE
-        if (
-          scheduling.type === "once" &&
-          scheduling.localDate === localDate
-        ) {
-          shouldExist = true;
-        }
-
-        // RECURRING
-        if (
-          scheduling.type === "recurring"
-        ) {
-          shouldExist =
-            matchesRecurrenceRule(
-              definition,
-              localDate
-            );
-        }
-
-        if (!shouldExist) continue;
-
-        // CHECK EXISTING
-        const existing =
-          await Occurrence.findOne({
-            definitionId: definition._id,
-            localDate,
-          });
-
-        if (existing) {
-          generated.push(existing);
+        if (!shouldExist) {
           continue;
         }
 
-        // CREATE OCCURRENCE
         const occurrence =
-          await Occurrence.create({
+          await findOrCreateOccurrence(
 
             ownerId,
 
-            definitionId:
-              definition._id,
+            definition,
 
-            localDate,
+            localDate
+          );
 
-            timezone:
-              scheduling.timezone,
-
-            time:
-              scheduling.time,
-
-            snapshot: {
-              title:
-                definition.title,
-
-              priority:
-                definition.metadata
-                  ?.priority,
-            },
-          });
-
-        generated.push(occurrence);
+        generated.push(
+          occurrence
+        );
       }
 
       current.setDate(
@@ -111,5 +193,12 @@ const generateOccurrencesForRange =
 };
 
 module.exports = {
+
+  generateOccurrence,
+
+  findOrCreateOccurrence,
+
+  shouldGenerateOccurrence,
+
   generateOccurrencesForRange,
 };

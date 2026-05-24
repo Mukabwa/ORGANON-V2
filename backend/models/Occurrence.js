@@ -27,16 +27,21 @@ const OccurrenceSchema = new mongoose.Schema(
     required: true,
   },
 
-  time: String,
+  time: {
+    type: String,
+  },
 
   status: {
+
     type: String,
+
     enum: [
       "pending",
       "completed",
       "skipped",
       "cancelled",
     ],
+
     default: "pending",
   },
 
@@ -44,7 +49,16 @@ const OccurrenceSchema = new mongoose.Schema(
 
   notes: String,
 
-  overrideData: {},
+  overrideData: {
+
+    localDate: String,
+
+    time: String,
+
+    title: String,
+
+    description: String,
+  },
 
   snapshot: {
 
@@ -56,9 +70,13 @@ const OccurrenceSchema = new mongoose.Schema(
 { timestamps: true }
 );
 
+// IMPORTANT TIMELINE INDEX
 OccurrenceSchema.index({
   ownerId: 1,
   localDate: 1,
 });
 
-module.exports = mongoose.model("Occurrence", OccurrenceSchema);
+module.exports = mongoose.model(
+  "Occurrence",
+  OccurrenceSchema
+);

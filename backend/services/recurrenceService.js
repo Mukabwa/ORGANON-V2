@@ -8,21 +8,29 @@ const matchesRecurrenceRule = (
   const recurrence =
     definition.scheduling?.recurrenceRule;
 
-  if (!recurrence) return false;
+  if (!recurrence) {
+    return false;
+  }
 
   const date =
     DateTime.fromISO(localDate);
 
   // DAILY
-  if (recurrence.frequency === "daily") {
+  if (
+    recurrence.frequency === "daily"
+  ) {
     return true;
   }
 
   // WEEKLY
-  if (recurrence.frequency === "weekly") {
+  if (
+    recurrence.frequency === "weekly"
+  ) {
 
     const weekday =
-      date.toFormat("cccc").toLowerCase();
+      date
+        .toFormat("cccc")
+        .toLowerCase();
 
     return recurrence.daysOfWeek?.includes(
       weekday
@@ -30,21 +38,29 @@ const matchesRecurrenceRule = (
   }
 
   // MONTHLY
-  if (recurrence.frequency === "monthly") {
+  if (
+    recurrence.frequency === "monthly"
+  ) {
 
     return (
-      date.day === recurrence.dayOfMonth
+      date.day ===
+      recurrence.dayOfMonth
     );
   }
 
   // YEARLY
-  if (recurrence.frequency === "yearly") {
+  if (
+    recurrence.frequency === "yearly"
+  ) {
 
-    return (
-      date.ordinal ===
+    const start =
       DateTime.fromISO(
         recurrence.startDate
-      ).ordinal
+      );
+
+    return (
+      date.month === start.month &&
+      date.day === start.day
     );
   }
 

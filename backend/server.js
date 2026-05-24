@@ -7,6 +7,15 @@ const connectDB = require("./config/db");
 // ROUTES
 const authRoutes = require("./routes/authRoutes");
 
+const timelineRoutes =
+  require("./routes/timelineRoutes");
+
+const definitionRoutes =
+  require("./routes/definitionRoutes");
+
+const occurrenceRoutes =
+  require("./routes/occurrenceRoutes");
+
 const app = express();
 
 
@@ -29,6 +38,20 @@ app.get("/", (req, res) => {
 // API ROUTES
 app.use("/api/auth", authRoutes);
 
+app.use(
+  "/api/timeline",
+  timelineRoutes
+);
+
+app.use(
+  "/api/definitions",
+  definitionRoutes
+);
+
+app.use(
+  "/api/occurrences",
+  occurrenceRoutes
+);
 
 // SERVER
 const PORT = process.env.PORT || 5000;

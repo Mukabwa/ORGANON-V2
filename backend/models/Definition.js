@@ -11,12 +11,14 @@ const DefinitionSchema = new mongoose.Schema(
 
   kind: {
     type: String,
+
     enum: [
       "task",
       "routine",
       "event",
       "milestone",
     ],
+
     default: "task",
   },
 
@@ -35,24 +37,35 @@ const DefinitionSchema = new mongoose.Schema(
 
     type: {
       type: String,
+
       enum: [
         "once",
         "recurring",
         "floating",
       ],
+
       default: "once",
     },
 
-    localDate: String,
+    localDate: {
+      type: String,
+    },
 
-    timezone: String,
+    timezone: {
+      type: String,
+      default: "Africa/Nairobi",
+    },
 
-    time: String,
+    time: {
+      type: String,
+    },
 
     recurrenceRule: {
 
       frequency: {
+
         type: String,
+
         enum: [
           "daily",
           "weekly",
@@ -66,7 +79,11 @@ const DefinitionSchema = new mongoose.Schema(
         default: 1,
       },
 
-      daysOfWeek: [String],
+      daysOfWeek: [
+        {
+          type: String,
+        },
+      ],
 
       dayOfMonth: Number,
 
@@ -90,14 +107,25 @@ const DefinitionSchema = new mongoose.Schema(
       },
     ],
 
-    tags: [String],
+    tags: [
+      {
+        type: String,
+      },
+    ],
   },
 
   metadata: {
 
     priority: {
+
       type: String,
-      enum: ["low", "medium", "high"],
+
+      enum: [
+        "low",
+        "medium",
+        "high",
+      ],
+
       default: "medium",
     },
 
@@ -122,4 +150,7 @@ const DefinitionSchema = new mongoose.Schema(
 { timestamps: true }
 );
 
-module.exports = mongoose.model("Definition", DefinitionSchema);
+module.exports = mongoose.model(
+  "Definition",
+  DefinitionSchema
+);
