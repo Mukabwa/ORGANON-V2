@@ -1,6 +1,11 @@
 const Occurrence =
   require("../models/Occurrence");
 
+const RoutineInsertion =
+  require(
+    "../models/RoutineInsertion"
+  );
+
 const {
   generateOccurrencesForRange,
 } = require("./occurrenceService");
@@ -12,6 +17,9 @@ const normalizeOccurrence =
 
       _id:
         occurrence._id,
+
+      type:
+        "occurrence",
 
       definitionId:
         occurrence.definitionId,
@@ -70,6 +78,45 @@ const normalizeOccurrence =
     };
 };
 
+const normalizeRoutineInsertion =
+  (insertion) => {
+
+    return {
+
+      _id:
+        insertion._id,
+
+      type:
+        "routine",
+
+      routineId:
+        insertion.routineId,
+
+      effectiveLocalDate:
+        insertion.localDate,
+
+      originalLocalDate:
+        insertion.localDate,
+
+      time:
+        insertion.time,
+
+      status:
+        insertion.status,
+
+      title:
+        insertion.routineId
+          ?.title,
+
+      description:
+        insertion.routineId
+          ?.description,
+
+      items:
+        insertion.items,
+    };
+};
+
 const getTimelineRange =
   async (
     ownerId,
@@ -84,31 +131,26 @@ const getTimelineRange =
       endDate
     );
 
-    // fetch all occurrences
-    // IMPORTANT:
-    // moved occurrences may exist
-    // outside original query range
+    // fetch occurrences
     const occurrences =
       await Occurrence.find({
         ownerId,
       })
-      .populate(
-        "definitionId"
-      )
-      .sort({
-        localDate: 1,
-        time: 1,
-      });
+        .populate(
+          "definitionId"
+        )
+        .sort({
+          localDate: 1,
+          time: 1,
+        });
 
-    // normalize occurrences
-    const normalized =
+    const normalizedOccurrences =
       occurrences.map(
         normalizeOccurrence
       );
 
-    // filter by EFFECTIVE date
-    const filtered =
-      normalized.filter(
+    const filteredOccurrences =
+      normalizedOccurrences.filter(
         (occurrence) => {
 
           return (
@@ -126,7 +168,64 @@ const getTimelineRange =
         }
       );
 
-    return filtered;
+    // fetch routine insertions
+    const routineInsertions =
+      await RoutineInsertion.find({
+
+        ownerId,
+
+        localDate: {
+
+          $gte: startDate,
+
+          $lte: endDate,
+        },
+      })
+        .populate(
+          "routineId"
+        );
+
+    const normalizedInsertions =
+      routineInsertions.map(
+        normalizeRoutineInsertion
+      );
+
+    // merge both systems
+    const timeline = [
+
+      ...filteredOccurrences,
+
+      ...normalizedInsertions,
+    ];
+
+    // sort final timeline
+    timeline.sort(
+      (a, b) => {
+
+        if (
+          a.effectiveLocalDate <
+          b.effectiveLocalDate
+        ) {
+          return -1;
+        }
+
+        if (
+          a.effectiveLocalDate >
+          b.effectiveLocalDate
+        ) {
+          return 1;
+        }
+
+        return (
+          (a.time || "")
+            .localeCompare(
+              b.time || ""
+            )
+        );
+      }
+    );
+
+    return timeline;
 };
 
 module.exports = {

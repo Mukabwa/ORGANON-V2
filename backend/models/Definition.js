@@ -14,7 +14,6 @@ const DefinitionSchema = new mongoose.Schema(
 
     enum: [
       "task",
-      "routine",
       "event",
       "milestone",
     ],
@@ -41,7 +40,6 @@ const DefinitionSchema = new mongoose.Schema(
       enum: [
         "once",
         "recurring",
-        "floating",
       ],
 
       default: "once",

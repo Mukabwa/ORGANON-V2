@@ -16,6 +16,27 @@ const definitionRoutes =
 const occurrenceRoutes =
   require("./routes/occurrenceRoutes");
 
+const routineRoutes =
+  require(
+    "./routes/routineRoutes"
+  );
+
+const routineInsertionRoutes =
+  require(
+    "./routes/routineInsertionRoutes"
+  );
+
+const projectRoutes =
+  require(
+    "./routes/projectRoutes"
+  );
+
+const goalRoutes =
+  require(
+    "./routes/goalRoutes"
+  );
+
+
 const app = express();
 
 
@@ -51,6 +72,26 @@ app.use(
 app.use(
   "/api/occurrences",
   occurrenceRoutes
+);
+
+app.use(
+  "/api/routines",
+  routineRoutes
+);
+
+app.use(
+  "/api/routine-insertions",
+  routineInsertionRoutes
+);
+
+app.use(
+  "/api/projects",
+  projectRoutes
+);
+
+app.use(
+  "/api/goals",
+  goalRoutes
 );
 
 // SERVER
