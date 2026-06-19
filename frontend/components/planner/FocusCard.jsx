@@ -1,11 +1,13 @@
 function FocusCard({ items = [] }) {
   return (
     <div className="focus-card">
+
       <h3 className="focus-title">
         Today's Focus ✦
       </h3>
 
       <div className="focus-circle">
+
         <span className="focus-number">
           {items.length}
         </span>
@@ -15,18 +17,22 @@ function FocusCard({ items = [] }) {
           <br />
           Items
         </span>
+
       </div>
 
       <ul className="focus-list">
-        {items.map((item) => (
+
+        {items.map((item, index) => (
+
           <li
-            key={item._id}
+            key={item._id || index}
             className={`focus-item ${
               item.status === "completed"
                 ? "completed"
                 : ""
             }`}
           >
+
             <span className="focus-bullet">
               {item.status === "completed"
                 ? "✓"
@@ -36,9 +42,13 @@ function FocusCard({ items = [] }) {
             <span>
               {item.title}
             </span>
+
           </li>
+
         ))}
+
       </ul>
+
     </div>
   );
 }

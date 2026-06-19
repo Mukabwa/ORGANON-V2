@@ -180,6 +180,7 @@ ul {
 .daily-page {
 
   max-width: 850px;
+  position: relative;
 
   margin: 0 auto;
 
@@ -188,6 +189,77 @@ ul {
   flex-direction: column;
 
   gap: 1rem;
+}
+
+/* ==========================
+   PLANNER VIEW SWITCHER
+========================== */
+
+.planner-view-switcher {
+
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  display: flex;
+
+  gap: .25rem;
+
+  padding: .3rem;
+
+  border-radius: 999px;
+
+  background:
+    rgba(255,255,255,.55);
+
+  border:
+    1px solid rgba(207,163,90,.12);
+
+  backdrop-filter:
+    blur(8px);
+
+  box-shadow:
+    0 8px 24px rgba(0,0,0,.04);
+}
+
+.planner-view-btn {
+
+  padding:
+    .55rem 1rem;
+
+  border-radius:
+    999px;
+
+  font-size:
+    .8rem;
+
+  font-weight:
+    600;
+
+  color:
+    var(--ink-soft);
+
+  transition:
+    all .2s ease;
+}
+
+.planner-view-btn:hover {
+
+  background:
+    rgba(231,200,193,.25);
+}
+
+.planner-view-btn.active {
+
+  background:
+    rgba(231,200,193,.7);
+
+  color:
+    var(--ink);
+
+  box-shadow:
+    0 2px 8px rgba(0,0,0,.04);
 }
 
 /* ==========================
@@ -225,6 +297,85 @@ ul {
   font-style: italic;
 }
 
+.date-navigation {
+
+  
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 2rem;
+
+  margin-bottom: .5rem;
+}
+
+.daily-day {
+
+  font-size: 1rem;
+
+  color: var(--ink-soft);
+
+  font-style: italic;
+}
+
+.daily-date {
+
+  font-family:
+    var(--font-heading);
+
+  font-size: 3.5rem;
+
+  font-weight: 600;
+
+  color: var(--ink);
+
+  margin: 0;
+}
+
+.date-nav-side {
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+
+  font-size: .95rem;
+
+  color: rgba(127,112,104,.45);
+
+  transition: all .2s ease;
+}
+
+.date-nav-side:hover {
+
+  color: var(--gold);
+
+  transform: translateY(-1px);
+}
+
+.date-link {
+
+  border: none;
+
+  background: none;
+
+  cursor: pointer;
+
+  font-size: .9rem;
+
+  color: rgba(127,112,104,.55);
+
+  transition: .2s ease;
+}
+
+.date-link:hover {
+
+  color: var(--gold);
+
+  transform: translateY(-1px);
+}
 /* ==========================
    SECTION CARDS
 ========================== */
