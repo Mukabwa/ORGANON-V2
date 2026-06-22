@@ -1,0 +1,92 @@
+.organon-time-picker {
+
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+}
+
+.time-picker-row {
+
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+
+}
+
+.time-wheel {
+
+  width: 60px;
+
+  background:
+    var(--paper-dark);
+
+  border-radius: 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: .5rem;
+
+  box-shadow:
+    0 6px 12px
+    rgba(0,0,0,.08);
+
+}
+
+.wheel-arrow {
+
+  border: none;
+  background: none;
+
+  cursor: pointer;
+
+  font-size: .75rem;
+
+  color:
+    var(--ink-soft);
+
+}
+
+.wheel-value {
+
+  font-size: 1.3rem;
+
+  font-weight: 600;
+
+  padding:
+    .5rem 0;
+
+}
+
+.time-separator {
+
+  font-size: 1.6rem;
+
+  font-weight: 700;
+
+}
+
+.selected-time {
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: .25rem;
+
+  color:
+    var(--ink-soft);
+
+}
+
+.selected-time strong {
+
+  color:
+    var(--ink);
+
+  font-size: 1.1rem;
+
+}

@@ -1,0 +1,51 @@
+.priority-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 0.5rem;
+
+}
+
+.priority-card {
+
+  border: 2px solid transparent;
+
+  background:
+    var(--paper-dark);
+
+  border-radius: 12px;
+
+  border: 1px solid rgba(0,0,0,.08);
+
+  padding: 0.75rem;
+
+  text-transform: capitalize;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    all .2s ease;
+
+}
+
+.priority-card:hover {
+
+  transform:
+    translateY(-2px);
+
+}
+
+.priority-card.active {
+
+  border-color:
+    var(--gold);
+
+  background:
+    rgba(207,163,90,.12);
+
+}

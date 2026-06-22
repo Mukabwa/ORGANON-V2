@@ -2,6 +2,19 @@
 
 import "../styles/globals.css";
 
+import "../styles/planner/daily.css";
+import "../styles/planner/timeline.css";
+import "../styles/planner/weekly.css";
+import "../styles/planner/monthly.css";
+
+import "../styles/modals/add-task-modal.css";
+
+import "../styles/components/buttons.css";
+import "../styles/modals/add-task-modal.css";
+import "../styles/modals/time-picker.css";
+import "../styles/modals/priority-selector.css";
+import "../styles/modals/recurrence-selector.css";
+
 import {
   Inter,
   Playfair_Display,

@@ -1,0 +1,47 @@
+.recurrence-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, 1fr);
+
+  gap: .75rem;
+
+}
+
+.recurrence-card {
+
+  border: 2px solid transparent;
+
+  background:
+    var(--paper-dark);
+
+  border-radius: 18px;
+
+  padding: .9rem;
+
+  text-transform: capitalize;
+
+  cursor: pointer;
+
+  transition:
+    all .2s ease;
+
+}
+
+.recurrence-card:hover {
+
+  transform:
+    translateY(-2px);
+
+}
+
+.recurrence-card.active {
+
+  border-color:
+    var(--gold);
+
+  background:
+    rgba(207,163,90,.15);
+
+}
