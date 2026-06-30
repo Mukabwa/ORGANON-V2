@@ -1,13 +1,22 @@
-import AppShell from "@/components/shell/AppShell";
-import PageHeader from "@/components/layout/PageHeader";
+"use client";
 
-export default function ProjectsPage() {
+import AppShell from "@/components/shell/AppShell";
+
+import GoalsHeader from "@/components/goals/GoalsHeader";
+import GoalViewer from "@/components/goals/GoalViewer";
+
+import "@/styles/pages/goals.css";
+
+export default function GoalsPage() {
   return (
     <AppShell>
-      <PageHeader
-        title="Goals"
-        description="Manage your goals"
-      />
+      <div className="goals-page">
+
+        <GoalsHeader />
+
+        <GoalViewer />
+
+      </div>
     </AppShell>
   );
 }
