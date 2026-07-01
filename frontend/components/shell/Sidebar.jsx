@@ -12,10 +12,6 @@ export default function Sidebar() {
       href: "/planner/daily",
     },
     {
-      label: "Tasks",
-      href: "/tasks",
-    },
-    {
       label: "Projects",
       href: "/projects",
     },
@@ -26,10 +22,6 @@ export default function Sidebar() {
     {
       label: "Routines",
       href: "/routines",
-    },
-    {
-      label: "Profile",
-      href: "/profile",
     },
   ];
 

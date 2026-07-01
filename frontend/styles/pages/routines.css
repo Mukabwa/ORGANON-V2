@@ -1,0 +1,252 @@
+/* ==========================================================
+   ROUTINES PAGE
+========================================================== */
+
+.routines-page{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:2.5rem;
+
+    padding:0rem 3rem 3rem;
+
+    min-height:100%;
+
+    background:
+
+        radial-gradient(
+            circle at 85% 10%,
+            rgba(255,221,205,.45),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(235,225,255,.35),
+            transparent 30%
+        ),
+
+        #FFF9F4;
+
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.routines-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-end;
+
+}
+
+.routines-header h1{
+
+    font-size:1.8rem;
+
+    color:#47362C;
+
+    margin-bottom:.5rem;
+
+}
+
+.routines-header p{
+
+    max-width:450px;
+
+    color:#756A62;
+
+    line-height:1.8;
+
+}
+
+.new-routine-button{
+
+    border:none;
+
+    border-radius:999px;
+
+    padding:.9rem 1.5rem;
+
+    background:#FFDCCB;
+
+    color:#6B4B3E;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.new-routine-button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================================
+   GRID
+========================================================== */
+
+.routine-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fill,minmax(200px,1fr));
+
+    gap:2rem;
+
+}
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.routine-card{
+
+    overflow:hidden;
+
+    border-radius:28px;
+
+    background:#FFFDFB;
+
+    border:1px solid rgba(220,205,192,.5);
+
+    box-shadow:
+
+        0 12px 28px rgba(184,160,139,.10),
+
+        0 3px 10px rgba(0,0,0,.04);
+
+    transition:.3s ease;
+
+}
+
+.routine-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:430px;
+
+}
+
+.routine-card:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.01);
+
+}
+
+.routine-gradient{
+
+    height:120px;
+
+    background:
+
+        radial-gradient(
+            circle at top,
+            rgba(255,221,205,.85),
+            transparent 60%
+        ),
+
+        radial-gradient(
+            circle at bottom right,
+            rgba(225,213,255,.75),
+            transparent 70%
+        ),
+
+        linear-gradient(
+            135deg,
+            #FFF5EE,
+            #FFF1EA,
+            #F6EEFF
+        );
+
+}
+
+.routine-content{
+
+    padding:1.75rem;
+
+}
+
+.routine-content h2{
+
+    font-size:1.35rem;
+
+    color:#43352D;
+
+    margin-bottom:1.5rem;
+
+}
+
+.routine-content ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.routine-content li{
+
+    margin-bottom:.85rem;
+
+    color:#6E625A;
+
+    font-size:.95rem;
+
+}
+
+.routine-content footer{
+
+    margin-top:2rem;
+
+    padding-top:1rem;
+
+    border-top:1px solid rgba(0,0,0,.06);
+
+    display:flex;
+
+    justify-content:space-between;
+
+    color:#9B8C82;
+
+    font-size:.9rem;
+
+}
+
+.more-tasks{
+
+    margin-top:.5rem;
+
+    color:#B08E73;
+
+    font-style:italic;
+
+    font-size:.9rem;
+
+}
+
+.routine-content footer{
+
+    margin-top:auto;
+
+    padding-top:1rem;
+
+    border-top:1px solid rgba(0,0,0,.05);
+
+}

@@ -1,13 +1,22 @@
-import AppShell from "@/components/shell/AppShell";
-import PageHeader from "@/components/layout/PageHeader";
+"use client";
 
-export default function ProjectsPage() {
+import AppShell from "@/components/shell/AppShell";
+
+import RoutinesHeader from "@/components/routines/RoutinesHeader";
+import RoutineGrid from "@/components/routines/RoutineGrid";
+
+import "@/styles/pages/routines.css";
+
+export default function RoutinesPage() {
   return (
     <AppShell>
-      <PageHeader
-        title="Routines"
-        description="Manage your routines"
-      />
+      <div className="routines-page">
+
+        <RoutinesHeader />
+
+        <RoutineGrid />
+
+      </div>
     </AppShell>
   );
 }
